@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Autocomplete Example</title>
+	<link rel="stylesheet" href="./index.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<h2>                  :)</h2>
+    <center>
+	<h1>Autocomplete </h1>
+	<input type="text" id="autocomplete" placeholder="Type here...">
+    <br>
+    <br>
+
+	<div id="suggestions"></div>
+    <br>
+    <button onclick="rechercheDansTableau()">Search</button>
+	<br>	
+	<br>	
+	<br>	
+	<br>	
+    <p id="resultat"></p>
+</center>
+	<script>
+
+function rechercheDansTableau() {
+  // Récupération de la valeur saisie par l'utilisateur
+  var recherche = document.getElementById("autocomplete").value;
+
+  // Recherche de la valeur dans un tableau
+  var tableau = ["Apple", "Banana", "Cherry"];
+  var index = tableau.indexOf(recherche);
+  var tableau1 = ["Apple  est une entreprise multinationale américaine qui crée et commercialise des produits électroniques grand public, des ordinateurs personnels et des logiciels.", "La banane est le fruit ou la baie dérivant de l’inflorescence du bananier. Les bananes sont des fruits très généralement stériles issus de variétés domestiquées. ", "Un aide-soignant militaire est de retour de la guerre en Irak. Atteint de stress post-traumatique, il se met à braquer des banques dans la région de Cleveland pour financer sa dépendance aux opiacés."];
+
+
+  // Affichage de la valeur dans le tableau
+  var resultat = document.getElementById("resultat");
+  if (index !== -1) {
+    resultat.innerHTML = tableau1[index];
+  } else {
+    resultat.innerHTML = "La valeur " + recherche + " n'a pas été trouvée dans le tableau";
+  }
+}
+
+
+
+
+		$(document).ready(function() {
+			// Define an array of suggestions
+			var suggestions = ["Apple", "Banana", "Cherry", "Durian", "Elderberry", "Fig"];
+
+			// Listen for input changes on the text input
+			$("#autocomplete").on("input", function() {
+				// Clear any existing suggestions
+				$("#suggestions").empty();
+
+				// Get the value of the input
+				var value = $(this).val();
+
+				// Filter the suggestions based on the input value
+				var matches = suggestions.filter(function(suggestion) {
+					return suggestion.toLowerCase().includes(value.toLowerCase());
+				});
+
+				// Add the filtered suggestions to the suggestions div
+				matches.forEach(function(match) {
+					var suggestion = $("<div>").text(match);
+					suggestion.on("click", function() {
+						// Set the input value to the clicked suggestion
+						$("#autocomplete").val(match);
+						// Clear the suggestions
+						$("#suggestions").empty();
+					});
+					$("#suggestions").append(suggestion);
+				});
+			});
+		});
+	</script>
+</body>
+</html>
